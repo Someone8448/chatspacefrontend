@@ -115,6 +115,7 @@ chat.receive = (msg, above, current) => {
 				var linkEl = document.createElement('img');
 				linkEl.src = word;
 				linkEl.style.maxWidth = "50%";
+				linkEl.style.maxHeight = "50%";
 				messageHt.append(document.createElement('br'));
 				} else if (['mp3', 'aac', 'ogg', 'flac', 'wav'].includes(extension)) {
 				//audio embed (ts sucks)
@@ -123,6 +124,7 @@ chat.receive = (msg, above, current) => {
 				var sourceEl = document.createElement('source');
 				sourceEl.src = word;
 				linkEl.style.maxWidth = "50%";
+				linkEl.style.maxHeight = "50%";
 				linkEl.append(sourceEl);
 				messageHt.append(document.createElement('br'));
 				} else if (['mp4', 'avi', 'mov', 'mpeg'].includes(extension)) {
@@ -132,6 +134,7 @@ chat.receive = (msg, above, current) => {
 				var sourceEl = document.createElement('source');
 				sourceEl.src = word;
 				linkEl.style.maxWidth = "50%";
+				linkEl.style.maxHeight = "50%";
 				linkEl.append(sourceEl);
 				messageHt.append(document.createElement('br'));
 				} else {
