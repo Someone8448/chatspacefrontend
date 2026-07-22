@@ -140,7 +140,7 @@ client.on('guild', msg => {
                 cusDiv.append(nameSpan);
                 var setSpan = document.createElement('span');
                 setSpan.textContent = ` - ${notifDef.guild[cus[1]]} `;
-                cusDiv.append('setSpan');
+                cusDiv.append(setSpan);
                 var resetBut = document.createElement('button');
                 resetBut.type = "button";
                 resetBut.textContent = "Reset";
@@ -168,7 +168,7 @@ client.on('guild', msg => {
                 cusDiv.append(nameSpan);
                 var setSpan = document.createElement('span');
                 setSpan.textContent = ` - ${notifDef.dm[cus[1]]} `;
-                cusDiv.append('setSpan');
+                cusDiv.append(setSpan);
                 var resetBut = document.createElement('button');
                 resetBut.type = "button";
                 resetBut.textContent = "Reset";
