@@ -580,10 +580,11 @@ client.on('notif', msg => {
         if (!localStorage.globalNotifs) return;
 
         if (document.hasFocus()) {
+                if (msg.channel.id === client.channel) return;
                 var docUser = document.createElement('span');
                 docUser.textContent = `[${msg.message.user.id}] ${msg.message.user.nickname}`;
                 var docLoc = document.createElement('span');
-                docLoc.textContent = `${msg.channel.name} (${msg.guild.name})`;
+                docLoc.textContent = (msg.guild.id === "dms") ? msg.guild.name :`${msg.channel.name} (${msg.guild.name})`;
                 var docMsg = document.createElement('span');
                 docMsg.textContent = `${msg.message.message}`;
                 var doc = document.createElement('a');
@@ -594,6 +595,9 @@ client.on('notif', msg => {
                 liDoc.onclick = () => liDoc.remove()
                 setTimeout(() => liDoc.remove(), 7000);
         } else {
-                Notification.requestPermission(() => new Notification(`[${msg.message.user.id}] ${msg.message.user.nickname} in #${msg.channel.name} (${msg.guild.name})`, {body: msg.message.message}));
-        }
+                Notification.requestPermission(() => new Notification(`[${msg.message.user.id}] ${msg.message.user.nickname} in ` + ((msg.guild.id === "dms") ? msg.guild.name : `#${msg.channel.name} (${msg.guild.name})`), {body: msg.message.message}));
+        };
+        if ((localStorage.audioAnyTime || !document.hasFocus()) && chat.audio && chat.audio.play) chat.audio.play();
+
 })
+
