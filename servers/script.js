@@ -384,6 +384,14 @@ document.getElementById('channel-select').onclick = () => {
 	client.send({m: "channel", type: "join", channel: client.channel, chat: true});
 	document.getElementById('server-name').textContent = `${client.guilds.find(a => a.id === client.guild).name} [${client.guild}] - ${client.channels.find(a => a.id === client.channel).name} [${client.channels.find(a => a.id === client.channel).id}]`;
 	chat.clear();
+    if (client.channels.find(a => a.id === client.channel).locked) {
+            chat.input.disabled = true
+            chat.input.placeholder = "You cannot send messages in this channel.";
+     } else {
+            chat.input.disabled = false;
+             chat.input.placeholder = "Send a message here...";
+     }
+
 }
 document.getElementById('channel-del').onclick = () => {
 	if (confirm('Are you sure you want to delete this? Chats here will be deleted.')) {
