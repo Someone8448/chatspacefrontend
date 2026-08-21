@@ -40,6 +40,30 @@ client.on('user', msg => {
 	appendElement(infoDiv, 'p', msg.username);
 	appendElement(infoDiv, 'p', `ID: ${msg.id}`);
 	appendElement(infoDiv, 'p', msg.online ? 'ONLINE' : "OFFLINE");
+    appendElement(infoDiv, 'br');
+    var blocks = ((localStorage.blocks && localStorage.blocks.length) ? localStorage.blocks.split(',') : []);
+    var blockButton = appendElement(infoDiv, 'button', blocks.includes(msg.id) ? "Unblock" : "Block");
+    blockButton.type = "button";
+    blockButton.onclick = () => {
+            if (blocks.includes(msg.id)) {
+                    blocks.splice(blocks.indexOf(msg.id), 1);
+                    blockButton.textContent = "Block"
+            } else {
+                    blocks.push(msg.id);
+                    blockButton.textContent = "Unblock";
+            };
+            localStorage.blocks = blocks.join(',');
+    };
+    appendElement(infoDiv, 'span', ' ');
+    var dmButton = appendElement(infoDiv, 'button', 'Go to DM');
+    dmButton.type = "button";
+    dmButton.onclick = () => {
+            client.send({"m":"guild","type":"new-channel","id":"dms","name":msg.username});
+            setTimeout(() => {
+                    window.location.assign(`/servers/#dms-${[msg.id, localStorage.id].sort().join('_')}`);
+            }, 1000)
+    };
+
 	if (msg.bio && msg.bio.length) {
 		appendElement(infoDiv, 'br');
 		appendElement(infoDiv, 'br');
