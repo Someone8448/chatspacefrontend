@@ -108,7 +108,8 @@ client.on('admin', msg => {
                 var safeButton = appendElement(fileDiv, 'button', 'Safe');
                 safeButton.type = "button";
                 safeButton.onclick = () => {
-                        if (confirm('Are you sure you want to set this file to safe? This cannot be undone.')) client.send({m: "admin", type: "safe", file: file.id});
+                        if (!confirm('Are you sure you want to set this file to safe? This cannot be undone.')) return;
+						client.send({m: "admin", type: "safe", file: file.id});
                         var safes = document.createElement('b');
                         safes.textContent = "(SAFE) ";
                         fileDiv.prepend(safes);
