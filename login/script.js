@@ -13,7 +13,7 @@ client.on('login', msg => {
 		localStorage.token = msg.token;
 		localStorage.name = msg.name;
 		localStorage.id = msg.id
-		window.location.assign((location.hash && location.hash.length) ? decodeURIComponent(location.hash.startsWith('#') ? location.hash.slice(1) :  location.hash) :  '/');
+		window.location.assign((location.hash && location.hash.length && (location.hash.startsWith('/') || location.hash.startsWith('#/'))) ? decodeURIComponent(location.hash.startsWith('#') ? location.hash.slice(1) :  location.hash) :  '/');
 		return;
 	}
 	if (msg.type === "create") {
