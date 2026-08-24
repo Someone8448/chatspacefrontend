@@ -101,7 +101,7 @@ client.on('admin', msg => {
                 delButton.type = "button";
                 delButton.onclick = () => {
                         if (!confirm('Are you sure you want to delete this file? This cannot be undone.')) return;
-                         client.send({m: "admin", type: "delfine", file: file.id});
+                         client.send({m: "admin", type: "delfile", file: file.id});
                         fileDiv.remove();
                 }
                 if (!file.safe) {
