@@ -432,9 +432,24 @@ document.getElementById('invite-join').onclick = () => {
 }
 document.getElementById('server-list').onchange = () => document.getElementById('server-select').click();
 document.getElementById('channel-list').onchange = () => document.getElementById('channel-select').click();
-document.getElementById('chat-toggle').onclick = () => {
-	chat.box.hidden = !chat.box.hidden;
+chat.barHidden = false;
+document.getElementById('bar-toggle').onclick = () => {
+        if (chat.barHidden) {
+                document.getElementById('bar').hidden = false;
+                document.getElementById('main').style.marginLeft = '25%';
+                document.getElementById('chat').style.left = "25%"
+                document.getElementById('chat').style.width = "75%";
+                chat.resize();
+        } else {
+                document.getElementById('bar').hidden = true;
+                document.getElementById('main').style.marginLeft = '0%';
+                document.getElementById('chat').style.left = "0%"
+                document.getElementById('chat').style.width = "100%";
+                chat.resize();
+        }
+        chat.barHidden = !chat.barHidden;
 }
+
 setInterval(() => {
 	//client.send({m: "guild", type: "list"})
 	client.getList('guild')
