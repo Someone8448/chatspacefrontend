@@ -449,6 +449,12 @@ document.getElementById('bar-toggle').onclick = () => {
         }
         chat.barHidden = !chat.barHidden;
 }
+document.getElementById('menu-toggle').onclick = () => {
+        var selector = document.getElementById('selectorbutton');
+        selector.hidden = !selector.hidden;
+        chat.resize();
+}
+
 
 setInterval(() => {
 	//client.send({m: "guild", type: "list"})
