@@ -187,3 +187,54 @@ client.on('guild', msg => {
         })
 
 })
+document.getElementById('session-send').onclick = () => {
+        client.send({m: "login", type: "sessions"});
+}
+client.on('login', msg => {
+        if (msg.type !== "sessions") return;
+        if (!msg.sessions.length) {
+                document.getElementById('sessions').innerHTML = "<span>No Sessions</span>";
+                return
+        }
+        var appendElement = (div, type, text) => {
+                var El = document.createElement(type);
+                if (text) El.textContent = text;
+                div.append(El);
+                return El;
+        }
+        var sesDiv = document.getElementById('sessions');
+        sesDiv.innerHTML = "";
+        msg.sessions.forEach(ses => {
+                var inDiv = appendElement(sesDiv, 'div');
+                inDiv.id = `ses-${ses.d}`;
+                appendElement(inDiv, 'b', ses.d + ' ');
+                if (ses.u) appendElement(inDiv, 'span', ses.u + ', ');
+                appendElement(inDiv, 'span', `Last Used ${new Date(ses.t)} `);
+                if (!ses.c) {
+                        var logoutButton = appendElement(inDiv, 'button', 'Log Out');
+                        logoutButton.type = "button";
+                        logoutButton.onclick = () => {
+                                client.send({m: "login", type: "logout", device: ses.d, pass: document.getElementById('session-password').value});
+                        }
+                } else {
+                        appendElement(inDiv, 'b', 'Current Session ')
+                }
+                var ipButton = appendElement(inDiv, 'button', 'Toggle IPs');
+                ipButton.type = "button";
+                ipButton.onclick = () => {
+                        ipList.hidden = !ipList.hidden;
+                }
+                var ipList = appendElement(inDiv, 'span', ` IPs (${ses.i.length}): ${ses.i.join(', ')}`);
+                ipList.hidden = true;
+        })
+})
+client.on('login', msg => {
+        if (msg.type !== "logout") return;
+        if (msg.success) {
+                var sesDiv = document.getElementById(`ses-${msg.device}`);
+                if (!sesDiv) return;
+                sesDiv.remove();
+        } else {
+                document.getElementById('session-output').textContent = "Invalid password or session."
+        }
+})
