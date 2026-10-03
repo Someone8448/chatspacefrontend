@@ -21,6 +21,10 @@ document.getElementById('set-bio').onclick = () => {
 	client.send({m: "login", type: "setbio", bio: document.getElementById('acc-bio').value});
 }
 client.on('login', msg => {
+        if (msg.type !== "token") return;
+        if (!msg.login) return window.location.assign(`/login/#${encodeURIComponent(location.href.substr(location.origin.length))}`);
+})
+client.on('login', msg => {
 	if (msg.type !== "setname") return;
 	var out = document.getElementById('set-name-output')
 	if (msg.login) {
