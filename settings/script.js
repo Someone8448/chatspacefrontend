@@ -53,8 +53,9 @@ client.on('login', msg => {
 	} else out.textContent = "Unable to set About Me";
 })
 document.getElementById('log-out').onclick = () => {
-	localStorage.clear();
-	window.location.assign('/login')
+	//localStorage.clear();
+	//window.location.assign('/login')
+	client.send({m: "login", type: "logout"});
 }
 document.getElementById('get-acc-info').onclick = () => {
 	client.send({m: "user", id: localStorage.id});
